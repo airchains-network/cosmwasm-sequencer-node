@@ -7,6 +7,7 @@ require (
 	github.com/consensys/gnark v0.9.1
 	github.com/consensys/gnark-crypto v0.12.2-0.20231013160410-1f65e75b6dfb
 	github.com/fatih/color v1.16.0
+	github.com/joho/godotenv v1.5.1
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
 )
 

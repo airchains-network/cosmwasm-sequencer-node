@@ -3,19 +3,33 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	air "github.com/airchains-network/cosmwasm-sequencer-node/airdb/air-leveldb"
 	"github.com/airchains-network/cosmwasm-sequencer-node/common/logs"
 	"github.com/airchains-network/cosmwasm-sequencer-node/handlers"
 	settlement_client "github.com/airchains-network/cosmwasm-sequencer-node/handlers/settlement-client"
 	"github.com/airchains-network/cosmwasm-sequencer-node/prover"
 	"github.com/airchains-network/cosmwasm-sequencer-node/types"
+	"github.com/joho/godotenv"
 	"os"
 	"sync"
 	"time"
 )
 
 func main() {
-	logs.LogMessage("INFO:", "Starting Solana Seq Indexer")
+	logs.LogMessage("INFO:", "Starting Cosmwasm Seq Indexer")
+
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("error loading .env file")
+	}
+
+	daClientRPC := os.Getenv("DA_CLIENT_RPC")
+
+	if daClientRPC == "" {
+		logs.LogMessage("ERROR:", "DA_CLIENT_RPC is not set")
+		os.Exit(0)
+	}
 
 	dbStatus := air.InitDb()
 	if !dbStatus {
